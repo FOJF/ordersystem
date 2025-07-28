@@ -1,11 +1,12 @@
 package com.study.odersystem.member.domain;
 
 import com.study.odersystem.common.domain.BaseTime;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.study.odersystem.ordering.domain.Ordering;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Entity
@@ -19,5 +20,10 @@ public class Member extends BaseTime {
     private String email;
     private String password;
     private String name;
+    @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @Builder.Default
+    List<Ordering> orderings = new ArrayList<>();
 }
