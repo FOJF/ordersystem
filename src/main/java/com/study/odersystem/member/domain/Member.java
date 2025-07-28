@@ -23,7 +23,14 @@ public class Member extends BaseTime {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Builder.Default
+    private Boolean deleted = Boolean.FALSE;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @Builder.Default
-    List<Ordering> orderings = new ArrayList<>();
+    private List<Ordering> orderings = new ArrayList<>();
+
+    public void delete() {
+        this.deleted = Boolean.TRUE;
+    }
 }
