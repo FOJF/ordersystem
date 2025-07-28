@@ -1,4 +1,4 @@
-package com.study.odersystem.common.config;
+package com.study.odersystem.common.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,6 +1,6 @@
 package com.study.odersystem.member.controller;
 
-import com.study.odersystem.common.config.JwtTokenProvider;
+import com.study.odersystem.common.auth.JwtTokenProvider;
 import com.study.odersystem.common.dto.ResponseDto;
 import com.study.odersystem.member.dto.*;
 import com.study.odersystem.member.service.MemberService;

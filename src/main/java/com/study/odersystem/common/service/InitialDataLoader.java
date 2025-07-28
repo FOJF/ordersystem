@@ -1,4 +1,4 @@
-package com.study.odersystem.common.config;
+package com.study.odersystem.common.service;
 
 import com.study.odersystem.member.domain.Member;
 import com.study.odersystem.member.domain.Role;

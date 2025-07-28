@@ -1,4 +1,4 @@
-package com.study.odersystem.common.config;
+package com.study.odersystem.common.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.odersystem.common.dto.ResponseDto;

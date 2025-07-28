@@ -4,6 +4,7 @@ import com.study.odersystem.common.domain.BaseTime;
 import com.study.odersystem.ordering.domain.Ordering;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Where(clause = "deleted = false") // jpql을 제외하고 모든 조회 쿼리에 where deleted = false를 하는 효과
 public class Member extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

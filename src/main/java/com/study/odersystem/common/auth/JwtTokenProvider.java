@@ -1,4 +1,4 @@
-package com.study.odersystem.common.config;
+package com.study.odersystem.common.auth;
 
 import com.study.odersystem.member.dto.MemberDetailResDto;
 import io.jsonwebtoken.Claims;
