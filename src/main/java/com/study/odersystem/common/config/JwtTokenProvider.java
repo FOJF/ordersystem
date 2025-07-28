@@ -1,7 +1,6 @@
 package com.study.odersystem.common.config;
 
-import com.study.odersystem.member.domain.Member;
-import com.study.odersystem.member.dto.MemberDetailDto;
+import com.study.odersystem.member.dto.MemberDetailResDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,7 +29,7 @@ public class JwtTokenProvider {
         secret_at_key = new SecretKeySpec(java.util.Base64.getDecoder().decode(secretKeyAt), SignatureAlgorithm.HS512.getJcaName());
     }
 
-    public String createAtToken(MemberDetailDto dto) {
+    public String createAtToken(MemberDetailResDto dto) {
         String email = dto.getEmail();
         String role = dto.getRole().toString();
 

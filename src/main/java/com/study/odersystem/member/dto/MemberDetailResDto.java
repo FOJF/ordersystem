@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDetailDto {
+public class MemberDetailResDto {
     private Long id;
     private String name;
     private String email;
@@ -23,8 +23,8 @@ public class MemberDetailDto {
     private Boolean deleted;
     private List<Ordering> orderings = new ArrayList<>();
 
-    public static MemberDetailDto fromEntity(Member member) {
-        return MemberDetailDto.builder()
+    public static MemberDetailResDto fromEntity(Member member) {
+        return MemberDetailResDto.builder()
                 .id(member.getId())
                 .name(member.getName())
                 .email(member.getEmail())
