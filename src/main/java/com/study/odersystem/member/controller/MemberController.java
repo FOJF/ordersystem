@@ -2,6 +2,7 @@ package com.study.odersystem.member.controller;
 
 import com.study.odersystem.common.auth.JwtTokenProvider;
 import com.study.odersystem.common.dto.ResponseDto;
+import com.study.odersystem.member.domain.Member;
 import com.study.odersystem.member.dto.*;
 import com.study.odersystem.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -31,14 +32,28 @@ public class MemberController {
 
     @PostMapping("/doLogin")
     public ResponseEntity<?> doLogin(@RequestBody LoginReqDto loginReqDto) {
-        MemberDetailResDto dto = this.memberService.doLogin(loginReqDto);
-        String accessToken = jwtTokenProvider.createAtToken(dto);
+        Member member = this.memberService.doLogin(loginReqDto);
+
+        String accessToken = jwtTokenProvider.createAtToken(member);
+        String refreshToken = jwtTokenProvider.createRtToken(member);
 
         LoginResDto loginResDto = LoginResDto.builder()
                 .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .build();
 
         return ResponseEntity.ok(ResponseDto.ofSuccess(loginResDto, HttpStatus.OK.value(), "로그인 성공"));
+    }
+
+    @PostMapping("/refresh-at")
+    public ResponseEntity<?> generateNewAt(@RequestBody RefreshTokenDto refreshTokenDto) {
+        // rt 검증 로직 필요
+        String accessToken = jwtTokenProvider.refreshAtToken(refreshTokenDto.getRefreshToken());
+        LoginResDto dto = LoginResDto.builder()
+                .accessToken(accessToken)
+                .build();
+        // at 신규 생성 로직
+        return ResponseEntity.ok(ResponseDto.ofSuccess(dto, HttpStatus.OK.value(), "at 갱신 성공"));
     }
 
     @DeleteMapping()

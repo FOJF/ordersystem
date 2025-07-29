@@ -36,12 +36,12 @@ public class MemberService {
         return MemberDetailResDto.fromEntity(this.memberRepository.save(dto.toEntity()));
     }
 
-    public MemberDetailResDto doLogin(LoginReqDto dto) {
+    public Member doLogin(LoginReqDto dto) {
         Member member = this.memberRepository.findByEmail(dto.getEmail()).orElseThrow(() -> new BadCredentialsException("이메일 또는 비밀번호가 틀렸습니다."));
         if (!this.passwordEncoder.matches(dto.getPassword(), member.getPassword())) throw new BadCredentialsException("이메일 또는 비밀번호가 틀렸습니다.");
         if (member.getDeleted()) throw new EntityNotFoundException("삭제된 멤버입니다.");
 
-        return MemberDetailResDto.fromEntity(member);
+        return member;
     }
 
     public MemberDetailResDto delete() {

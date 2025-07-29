@@ -23,6 +23,8 @@ public class SecurityConfig {
     private final JwtAuthenticationHandler jwtAuthenticationHandler;
     private final JwtAuthorizationHandler jwtAuthorizationHandler;
 
+    private final String[] patterns = {"/member/create", "/member/doLogin", "/member/refresh-at"};
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -35,9 +37,7 @@ public class SecurityConfig {
                         e.authenticationEntryPoint(jwtAuthenticationHandler) // 401
                                 .accessDeniedHandler(jwtAuthorizationHandler) // 403
                 )
-                .authorizeHttpRequests(a -> a.requestMatchers(
-                        "/member/create",
-                        "/member/doLogin").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(a -> a.requestMatchers(patterns).permitAll().anyRequest().authenticated())
                 .build();
     }
 

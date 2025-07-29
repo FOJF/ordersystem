@@ -25,6 +25,10 @@ public class Product extends BaseTime {
     private String name;
     private Integer price;
     private String category;
-    private Long stockQuantity;
+    private Integer stockQuantity;
     private String url;
+
+    public void updateUrl(String url) {
+        this.url = url;
+    }
 }

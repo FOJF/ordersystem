@@ -54,4 +54,9 @@ public class CommonExceptionHandler {
                 )
         );
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(ResponseDto.ofFailure(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+    }
 }
