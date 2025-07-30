@@ -154,7 +154,6 @@ public class ProductService {
                         .product(product)
                         .build();
 
-
                 product.getProductImages().add(productImage);
             } catch (IOException e) {
                 // checkedException을 uncheckedException으로 변경해 rollback 되도록 예외 처리

@@ -7,6 +7,7 @@ import com.study.odersystem.ordering.service.OrderingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,4 +24,12 @@ public class OrderingController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDto.ofSuccess(dto, HttpStatus.CREATED.value(), "주문이 정상적으로 진행되고 있습니다."));
     }
 
+    @GetMapping("/list")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> findAll() {
+        List<OrderingSpecificResDto> dtos = this.orderingService.findAll();
+        return ResponseEntity.ok().body(
+                ResponseDto.ofSuccess(dtos, HttpStatus.OK.value(), "주문 목록 조회")
+        );
+    }
 }

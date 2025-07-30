@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class OrderDetailSpecificResDto {
-    private Long id;
-    private Long productId;
+    private Long detailId;
+    private String productName;
     private Integer quantity;
 
     public static OrderDetailSpecificResDto fromEntity(OrderDetail orderDetail) {
         return OrderDetailSpecificResDto.builder()
-                .id(orderDetail.getId())
-                .productId(orderDetail.getProduct().getId())
+                .detailId(orderDetail.getId())
+                .productName(orderDetail.getProduct().getName())
                 .quantity(orderDetail.getQuantity())
                 .build();
     }
