@@ -18,13 +18,13 @@ import lombok.NoArgsConstructor;
 public class OrderDetailSpecificResDto {
     private Long detailId;
     private String productName;
-    private Integer quantity;
+    private Integer productCount;
 
     public static OrderDetailSpecificResDto fromEntity(OrderDetail orderDetail) {
         return OrderDetailSpecificResDto.builder()
                 .detailId(orderDetail.getId())
                 .productName(orderDetail.getProduct().getName())
-                .quantity(orderDetail.getQuantity())
+                .productCount(orderDetail.getQuantity())
                 .build();
     }
 }

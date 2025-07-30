@@ -21,7 +21,7 @@ public class OrderingController {
     @PostMapping("")
     public ResponseEntity<?> createOrder(@RequestBody List<OrderCreateDto> orderCreateDtos) {
         OrderingSpecificResDto dto = this.orderingService.createOrder(orderCreateDtos);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDto.ofSuccess(dto, HttpStatus.CREATED.value(), "주문이 정상적으로 진행되고 있습니다."));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDto.ofSuccess(dto, HttpStatus.CREATED.value(), "주문 완료"));
     }
 
     @GetMapping("/list")
