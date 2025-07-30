@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @Getter
@@ -22,7 +25,11 @@ public class Ordering extends BaseTime {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private OrderStatus orderStatus = OrderStatus.ORDERED;
 
+    @Builder.Default
+    @OneToMany(mappedBy = "ordering",  fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +18,7 @@ public class ProductCreateDto {
     private String category;
     private Integer price;
     private Integer stockQuantity;
+    private MultipartFile productImg;
 
     public Product toEntity(Member member) {
         return Product.builder()

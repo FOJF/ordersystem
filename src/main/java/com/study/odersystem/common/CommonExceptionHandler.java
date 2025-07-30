@@ -59,4 +59,9 @@ public class CommonExceptionHandler {
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException e) {
         return ResponseEntity.badRequest().body(ResponseDto.ofFailure(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
     }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<?> handleIllegalStateException(IllegalStateException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ResponseDto.ofFailure(HttpStatus.CONFLICT.value(), e.getMessage()));
+    }
 }

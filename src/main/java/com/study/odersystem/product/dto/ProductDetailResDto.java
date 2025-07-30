@@ -1,10 +1,13 @@
 package com.study.odersystem.product.dto;
 
 import com.study.odersystem.product.domain.Product;
+import com.study.odersystem.product.domain.ProductImage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +20,7 @@ public class ProductDetailResDto {
     private Integer price;
     private Integer stockQuantity;
     private String email;
-    private String url;
+    private List<ProductImage> productImages;
 
     public static ProductDetailResDto fromEntity(Product product) {
         return ProductDetailResDto.builder()
@@ -26,7 +29,7 @@ public class ProductDetailResDto {
                 .category(product.getCategory())
                 .price(product.getPrice())
                 .stockQuantity(product.getStockQuantity())
-                .url(product.getUrl())
+                .productImages(product.getProductImages())
                 .email(product.getMember().getEmail())
                 .build();
     }
