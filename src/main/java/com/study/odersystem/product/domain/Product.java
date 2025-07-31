@@ -49,8 +49,8 @@ public class Product extends BaseTime {
             this.stockQuantity = productUpdateDto.getStockQuantity();
     }
 
-    public void updateStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    public void decreaseStockQuantity(Integer stockQuantity) {
+        this.stockQuantity -= stockQuantity;
     }
 
 //    public void updateUrl(String url) {

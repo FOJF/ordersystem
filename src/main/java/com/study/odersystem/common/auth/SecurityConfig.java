@@ -23,7 +23,7 @@ public class SecurityConfig {
     private final JwtAuthenticationHandler jwtAuthenticationHandler;
     private final JwtAuthorizationHandler jwtAuthorizationHandler;
 
-    private final String[] patterns = {"/member/create", "/member/doLogin", "/member/refresh-at"};
+    private final String[] patterns = {"/member/create", "/member/doLogin", "/member/refresh-at", "/product/list"};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {

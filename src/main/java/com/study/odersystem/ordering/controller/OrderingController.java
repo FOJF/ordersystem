@@ -13,21 +13,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 @RequiredArgsConstructor
 public class OrderingController {
     private final OrderingService orderingService;
 
     @PostMapping("")
     public ResponseEntity<?> createOrder(@RequestBody List<OrderCreateDto> orderCreateDtos) {
-        OrderingSpecificResDto dto = this.orderingService.createOrder(orderCreateDtos);
+        OrderingSpecificResDto dto = this.orderingService.createOrderConcurrent(orderCreateDtos);
         return ResponseEntity.status(HttpStatus.CREATED).body(ResponseDto.ofSuccess(dto, HttpStatus.CREATED.value(), "주문 완료"));
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> findAll() {
         List<OrderingSpecificResDto> dtos = this.orderingService.findAll();
+        return ResponseEntity.ok().body(
+                ResponseDto.ofSuccess(dtos, HttpStatus.OK.value(), "주문 목록 조회")
+        );
+    }
+
+    @GetMapping("/my-list")
+    public ResponseEntity<?> findMyList() {
+        List<OrderingSpecificResDto> dtos = this.orderingService.findMyList();
         return ResponseEntity.ok().body(
                 ResponseDto.ofSuccess(dtos, HttpStatus.OK.value(), "주문 목록 조회")
         );

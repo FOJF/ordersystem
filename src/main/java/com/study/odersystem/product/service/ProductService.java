@@ -1,5 +1,6 @@
 package com.study.odersystem.product.service;
 
+import com.study.odersystem.common.service.StockInventoryService;
 import com.study.odersystem.member.domain.Member;
 import com.study.odersystem.member.repository.MemberRepository;
 import com.study.odersystem.product.domain.Product;
@@ -40,6 +41,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
     private final S3Client s3Client;
+    private final StockInventoryService stockInventoryService;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -85,6 +87,9 @@ public class ProductService {
                 throw new IllegalArgumentException("이미지 업로드 실패");
             }
         }
+
+        // 상품 등록시 redis에 재고 세팅
+        stockInventoryService.makeStockQuantity(product.getId(), product.getStockQuantity());
 
         return product.getId();
     }

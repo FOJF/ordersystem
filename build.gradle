@@ -45,6 +45,9 @@ dependencies {
 
 	// redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//    rdb동기화작업을 이벤트기반 비동기작업으로 처리하기 위한 rabbitmq의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 }
 
 tasks.named('test') {
