@@ -1,10 +1,12 @@
 package com.study.odersystem.ordering.service;
 
+import com.study.odersystem.common.service.SseAlarmService;
 import com.study.odersystem.common.service.StockInventoryService;
 import com.study.odersystem.common.service.StockRabbitMqService;
 import com.study.odersystem.member.domain.Member;
 import com.study.odersystem.member.repository.MemberRepository;
 import com.study.odersystem.ordering.domain.OrderDetail;
+import com.study.odersystem.ordering.domain.OrderStatus;
 import com.study.odersystem.ordering.domain.Ordering;
 import com.study.odersystem.ordering.dto.OrderCreateDto;
 import com.study.odersystem.ordering.dto.OrderingSpecificResDto;
@@ -30,6 +32,7 @@ public class OrderingService {
     private final ProductRepository productRepository;
     private final StockInventoryService stockInventoryService;
     private final StockRabbitMqService stockRabbitMqService;
+    private final SseAlarmService sseAlarmService;
 
     // synchronized를 사용하더라도 mariaDB 자체도 멀티 쓰레드로 동작하기 때문에 여전히 문제가 발생할 소지가 있음
     public OrderingSpecificResDto createOrder(List<OrderCreateDto> dtos) {
@@ -82,6 +85,9 @@ public class OrderingService {
         });
 
         this.orderingRepository.save(ordering);
+
+        this.sseAlarmService.publishOrderingMessage("admin", member.getEmail(), ordering.getId(), OrderStatus.ORDERED);
+
         return OrderingSpecificResDto.fromEntity(ordering);
     }
 
@@ -145,5 +151,22 @@ public class OrderingService {
         Member member = this.memberRepository.findByEmail(authentication.getName()).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         return this.orderingRepository.findAllByMember(member).stream().map(OrderingSpecificResDto::fromEntity).toList();
+    }
+
+    public Long cancelOrder(Long id) {
+        Ordering ordering = this.orderingRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Order not found"));
+
+        ordering.cancelOrder();
+
+        ordering.getOrderDetails().forEach(orderDetail -> {
+            Product product = this.productRepository.findById(orderDetail.getProduct().getId()).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+
+            this.stockInventoryService.increaseStockQuantity(product.getId(), orderDetail.getQuantity());
+            product.increaseStockQuantity(orderDetail.getQuantity());
+        });
+
+        sseAlarmService.publishOrderingMessage(ordering.getMember().getEmail(), "admin", ordering.getId(), OrderStatus.CANCELED);
+
+        return ordering.getId();
     }
 }

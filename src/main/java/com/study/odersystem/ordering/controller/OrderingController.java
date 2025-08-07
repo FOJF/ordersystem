@@ -40,4 +40,13 @@ public class OrderingController {
                 ResponseDto.ofSuccess(dtos, HttpStatus.OK.value(), "주문 목록 조회")
         );
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> cancelOrder(@PathVariable Long id) {
+        Long canceledOrderingId = this.orderingService.cancelOrder(id);
+        return ResponseEntity.ok().body(
+                ResponseDto.ofSuccess(canceledOrderingId, HttpStatus.OK.value(), "주문 취소 완료")
+        );
+    }
 }

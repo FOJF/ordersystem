@@ -1,6 +1,7 @@
 package com.study.odersystem.common;
 
 import com.study.odersystem.common.dto.ResponseDto;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Hidden
 @RestControllerAdvice
 public class CommonExceptionHandler {
     @ExceptionHandler(value = EntityExistsException.class)

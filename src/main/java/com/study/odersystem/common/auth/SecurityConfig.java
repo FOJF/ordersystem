@@ -23,7 +23,8 @@ public class SecurityConfig {
     private final JwtAuthenticationHandler jwtAuthenticationHandler;
     private final JwtAuthorizationHandler jwtAuthorizationHandler;
 
-    private final String[] patterns = {"/member/create", "/member/doLogin", "/member/refresh-at", "/product/list"};
+    private final String[] patterns = {"/member/create", "/member/doLogin", "/member/refresh-at", "/product/list",
+            "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "swagger-ui.html"};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {

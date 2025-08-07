@@ -1,0 +1,2 @@
+2025-08-216 10:24 c.s.o.common.auth.JwtTokenFilter-Cannot invoke "String.substring(int)" because "bearerToken" is null
+2025-08-216 10:24 c.s.o.common.auth.JwtTokenFilter-Cannot invoke "String.substring(int)" because "bearerToken" is null

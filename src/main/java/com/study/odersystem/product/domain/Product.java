@@ -53,6 +53,9 @@ public class Product extends BaseTime {
         this.stockQuantity -= stockQuantity;
     }
 
+    public void increaseStockQuantity(Integer stockQuantity) {
+        this.stockQuantity += stockQuantity;
+    }
 //    public void updateUrl(String url) {
 //        this.url = url;
 //    }
